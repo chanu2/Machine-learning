@@ -1,15 +1,10 @@
 from sklearn.datasets import load_iris
 import numpy as np
-from sklearn.linear_model import LinearRegression
+
 data = load_iris()
 
 
 
-# X,y=data.data,data.target
-# reg = LinearRegression()
-# reg.fit(X, y)
-# y_pred=reg.predict(X)
-# print(y,np.round(y_pred))
 
 
 
