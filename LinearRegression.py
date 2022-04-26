@@ -1,6 +1,6 @@
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_iris    
 import numpy as np
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression     #입력과 결과사이의 관계를 1차식의 형태로 만들어 표현하는 방법
 data = load_iris()
 
 
