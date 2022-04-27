@@ -26,5 +26,7 @@
 # plt.scatter(X_pca[:,0],X_pca[:,1])
 
 #print(X_pca)
-# pca_component_
-# pca_explained_val
+#print(pca.n_components_)
+#print(X_pca)
+#print(pca.explained_variance_)  # 분산 크기 
+#print(pca.explained_variance_ratio_) # 분산 분포 비율
