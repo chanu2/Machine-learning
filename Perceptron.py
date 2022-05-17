@@ -1,3 +1,39 @@
+# adaline using keras
+from tensorflow.keras import models, layers
+import numpy as np
+
+# INPUT / OUTPUT DATA
+X = np.array([[0, 0],
+              [0, 1],
+              [1, 0],
+              [1, 1]])
+
+T = np.array([0,0,0,1])
+
+model = models.Sequential()
+model.add(layers.Dense(units = 1,  activation='linear',input_shape=(2,)))
+
+# training    #loss를 최소화시키는 것이 목표
+model.compile(optimizer='sgd',   #loss를 최소화시키기 위해 optimaize
+             loss="mse",   #w,b 가 얼마나 차이가 나는지 
+             metrics = ['acc'])
+
+model.fit(X,T,epochs = 10000, batch_size = 1, verbose = 1)
+
+# test
+Xtest_loss,Xtest_acc = model.evaluate(X,T)
+print(Xtest_acc)
+
+
+
+
+
+
+
+
+
+
+
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_iris
 from keras import models,layers
