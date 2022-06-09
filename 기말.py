@@ -1,3 +1,5 @@
+
+################################# # # and 게이트  ###############################################
 # # and 게이트 
 # from tensorflow.keras import models, layers
 # import numpy as np
@@ -28,7 +30,7 @@
 
 
 
-
+################################# # #iris 데이터로  ###############################################
 
 
 
@@ -57,7 +59,7 @@
 
 
 
-
+################################# 넘파이사용 퍼셉트론 ###############################################
 
 # # adaline using numpy
 # import numpy as np
@@ -94,7 +96,39 @@
 
 
 
-## softmax
+
+
+################################# 다중 퍼셉트론###############################################
+
+
+
+
+
+# #xor 게이트 
+# from tensorflow.keras import models, layers
+# import numpy as np
+
+# X=np.array([[0,0],[0,1],[1,0],[1,1]])
+# T=np.array([0,1,1,0])
+
+# model=models.Sequential()   
+# model.add(layers.Dense(units =5 , activation = 'sigmoid', input_shape=(2,)))
+# model.add(layers.Dense(units =5 , activation = 'sigmoid'))
+# model.add(layers.Dense(units =1 , activation = 'sigmoid'))
+                                             
+# model.compile(optimizer='adam',loss="binary_crossentropy",metrics=['acc'])  
+                
+
+# model.fit(X,T,epochs =1000, batch_size = 4, verbose =1)
+
+# X_test_loss,Xtest_acc = model.evaluate(X,T)
+# print(Xtest_acc)
+# Ttest =model.predict(X)   # [0,0,0,1]이 나와야 한다
+# print(Ttest)
+
+
+
+################################# softmax ###############################################
 
 
 
@@ -136,3 +170,105 @@
 
 #import numpy as np
 #np.argmax(model.predict(X_test),axis=1) # 하면 원하는 [0,2,1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################# 데이터 사용하는 법 ###############################################
+
+
+# #iris 데이터로 
+# from sklearn.model_selection import train_test_split
+# from sklearn.datasets import load_iris
+
+# from sklearn.datasets import load_breast_cancer  # 입력 30개    0,1 출력      ---> sigmioid
+
+
+# from sklearn.datasets import load_wine    # 입력 13개   풀력 0,1,2
+
+# import numpy as np
+# X,y=load_iris().data,load_iris().target #load_breast_cancer()
+# X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.33,)   # 입력 4개 출력은 개 중에 하나
+
+
+
+
+
+
+
+
+
+
+################################# pca를 사용한 ###############################################
+
+# from sklearn.datasets import load_iris
+# import numpy as np
+# from sklearn.model_selection import train_test_split
+# from sklearn.decomposition import PCA 
+
+
+
+# X, y = load_iris().data, load_iris().target
+
+# X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.33,)
+
+# pca = PCA(n_components=2)
+# pca.fit(X_train)
+
+# pca_X_train = pca.transform(X_train)
+# pca_X_test = pca.transform(X_test)
+# print(pca_X_train.shape,pca_X_test.shape)
+
+# """activation 
+
+# Linear => mse
+
+# sigmoid => binary_crossentropy
+
+# softmax => sparse_categorical_crossentropy
+# """
+
+# from tensorflow.keras import models, layers
+# import numpy as np
+
+
+# # model = models.Sequential()
+# # model.add(layers.Dense(units=1, activation='softmax', input_shape=(2,)))
+ 
+# # sigmoid => binary_crossentropy => [ 손실 : -60.4836540222168, 정확도 : 0.6666666865348816] mse => [0.3333333432674408, 0.6666666865348816]
+# # relu => binary_crossentropy => [손실 : -5 , 정확도 : 0.666666] [-5.0830793380737305, 0.6666666865348816] mse => [0.0439104363322258, 0.6666666865348816]
+
+# # softmax => sparse_categorical_crossentropy = [0.07778985798358917, 0.9777777791023254]
+# model=models.Sequential()
+# model.add(layers.Dense(units=7,activation='softmax',input_shape=(2,))) #units는 최소 3개 이상 (because,다중 퍼셉트론은 입력층,출력층,히든층)
+# model.add(layers.Dense(units=3,activation='softmax')) #units는 최소 3개 이상 (because,다중 퍼셉트론은 입력층,출력층,히든층)
+
+
+# ###
+# # model.compile(optimizer = 'adam',  # 최적화 알고리즘 적용(찾아보면 엄청 많으니까 "딥러닝 최적화 알고리즘"이라는 키워드로 찾아보는 것도 좋다)
+# #               loss = 'categorical_crossentropy', # loss도 우리가 정의해줄수 있는데 우리가 풀려고 하는 문제(회귀,분류 등)에 따라 달라지니 궁금하면 찾아보자 
+# #               metrics = ['accuracy']) # 우리가 볼 지표, 이것도 회귀문제냐 분류문제냐에 따라 다르다 여기에서는 분류 문제이기때문에 Accuracy를 사용한다
+# ###
+# # 훈련 과정에서 층에 있는 일부 뉴런을 랜덤하게 꺼서(즉, 뉴런의 출력을 0으로 만들어) 과대 적합을 만듣 규제 기법
+
+
+
+# model.compile(optimizer='adam',
+#               loss='sparse_categorical_crossentropy',
+#               metrics= ['acc'])
+
+# model.fit(pca_X_train, y_train, epochs=1000, batch_size=1, verbose=1)
+
+# model.evaluate(pca_X_test, y_test, verbose = 2) # 모델 평가
+
+# model.predict(pca_X_test)
